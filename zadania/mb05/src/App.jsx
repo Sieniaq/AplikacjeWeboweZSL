@@ -7,6 +7,7 @@ import Navbar from './components/Navbar.jsx'
 import CategoryBar from './components/CategoryBar.jsx'
 import Gallery from './components/Gallery.jsx'
 import Footer from './components/Footer.jsx'
+import AddPhotoModal from './components/AddPhotoModal.jsx'
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         <Gallery />
       </main>
       <Footer/>
+      <AddPhotoModal />
     </>
   )
 }
