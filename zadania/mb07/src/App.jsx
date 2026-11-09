@@ -1,4 +1,5 @@
-import './App.css'
+import { useRef } from 'react'
+
 
 const kursy = [
   'Programowanie w C#',
@@ -9,6 +10,22 @@ const kursy = [
 
 
 function App() {
+  const imieNazwiskoRef = useRef(null)
+  const numerKursuRef = useRef(null)
+
+  function handleSubmit(event) {
+    event.preventDefault()
+    const imienazwisko = imieNazwiskoRef.current.value
+    const numerkursu = Number(numerKursuRef.current.value)
+    const kurs = kursy[numerkursu - 1]
+
+    console.log(imienazwisko)
+    if (kurs !== undefined) {
+      console.log(kurs)
+    } else {
+      console.log('Nieprawidłowy numer kursu')
+    }
+  }
 
   return (
     <div className="container py-4" style={{ maxWidth: 600 }}>
@@ -19,6 +36,31 @@ function App() {
           <li key={index}>{kurs}</li>
         ))}
       </ol>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="imienazwisko">Imię i nazwisko:</label>
+          <input
+            type="text"
+            id="imienazwisko"
+            className="form-control"
+            ref={imieNazwiskoRef}
+          />
+        </div>
+        <div className="form-group mt-2">
+          <label htmlFor="numerkursu">Numer kursu:</label>
+          <input
+            type="number"
+            id="numerkursu"
+            className="form-control"
+            ref={numerKursuRef}
+          />
+        </div>
+        <div className="form-group mt-3">
+          <button type="submit" className="btn btn-primary">
+            Zapisz do kursu
+          </button>
+        </div>
+      </form>
     </div>
   )
 }
