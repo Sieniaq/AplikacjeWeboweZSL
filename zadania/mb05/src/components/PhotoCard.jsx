@@ -1,10 +1,25 @@
 const NAZWA_KATEGORII = { gory: 'Góry', morze: 'Morze', miasto: 'Miasto' }
 const KOLOR_KATEGORII = { gory: 'success', morze: 'primary', miasto: 'dark' }
 
-function PhotoCard({id, title, description, category, image, alt }) {
+function PhotoCard({ id, title, description, category, image, alt, favorite, onUsun, onPrzelacz }) {
   return (
     <div className="card h-100 shadow-sm">
-      <img src={image} className="card-img-top" alt={alt} />
+      <div className="position-relative">
+        <img src={image} className="card-img-top" alt={alt} />
+        <button
+          type="button"
+          className="btn btn-light position-absolute top-0 end-0 m-2 rounded-circle p-2 shadow-sm"
+          onClick={onPrzelacz}
+          aria-label={favorite ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}
+          aria-pressed={favorite}
+        >
+          {favorite ? (
+            <i className="bi bi-star-fill text-warning" />
+          ) : (
+            <i className="bi bi-star text-secondary" />
+          )}
+        </button>
+      </div>
       <div className="card-body d-flex flex-column">
         <h3 className="card-title h5">{title}</h3>
         <p>
@@ -13,14 +28,23 @@ function PhotoCard({id, title, description, category, image, alt }) {
           </span>
         </p>
         <p className="card-text text-body-secondary">{description}</p>
-        <button
-          type="button"
-          className="btn btn-outline-primary mt-auto"
-          data-bs-toggle="modal"
-          data-bs-target={`#zdjecie${id}`}
-        >
-          Powiększ
-        </button>
+        <div className="d-flex gap-2 mt-auto">
+          <button
+            type="button"
+            className="btn btn-outline-primary flex-fill"
+            data-bs-toggle="modal"
+            data-bs-target={`#zdjecie${id}`}
+          >
+            Powiększ
+          </button>
+          <button 
+            type="button" 
+            className="btn btn-outline-danger" 
+            onClick={onUsun}
+          >
+            Usuń
+          </button>
+        </div>
       </div>
     </div>
   )
